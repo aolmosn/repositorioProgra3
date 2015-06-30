@@ -6,7 +6,7 @@
 package cl.inacap.controlador;
 
 import cl.inacap.DAO.DAOHincha;
-import cl.inacap.modelo.Hincha;
+import cl.inacap.modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -33,7 +33,7 @@ public class NuevaCuenta extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                Hincha h = new Hincha();
+                Usuario h = new Usuario();
                 h.setUsuario(request.getParameter("txtUsuario"));
                 //if(request.getParameter("txtPass") == request.getParameter("txtRePass")){
                     h.setPassword(request.getParameter("txtPass"));

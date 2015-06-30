@@ -5,7 +5,7 @@
  */
 package cl.inacap.DAO;
 
-import cl.inacap.modelo.Hincha;
+import cl.inacap.modelo.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,9 +20,9 @@ import java.util.logging.Logger;
  */
 public class DAOHincha extends ConBD{
     
-    public ArrayList<Hincha> listarUsuarios(){
-        ArrayList<Hincha> listaHincha = new ArrayList();
-        Hincha h;
+    public ArrayList<Usuario> listarUsuarios(){
+        ArrayList<Usuario> listaHincha = new ArrayList();
+        Usuario h;
         try {
             Connection con = this.getConexion();
             String strSQL = "SELECT * FROM USUARIO";
@@ -30,7 +30,7 @@ public class DAOHincha extends ConBD{
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
-                h = new Hincha();
+                h = new Usuario();
                 h.setUsuario(rs.getString("ident_usuario"));
                 h.setPassword(rs.getString("pass_usuario"));
                 h.setRut(rs.getInt("rut_usuario"));
@@ -51,9 +51,9 @@ public class DAOHincha extends ConBD{
         return listaHincha;
     }
     
-    public ArrayList<Hincha> listarHinchas(){
-        ArrayList<Hincha> listaHincha = new ArrayList();
-        Hincha h;
+    public ArrayList<Usuario> listarHinchas(){
+        ArrayList<Usuario> listaHincha = new ArrayList();
+        Usuario h;
         try {
             Connection con = this.getConexion();
             String strSQL = "SELECT * FROM USUARIO WHERE TIPO_USUARIO LIKE 'HINCHA%'";
@@ -61,7 +61,7 @@ public class DAOHincha extends ConBD{
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
-                h = new Hincha();
+                h = new Usuario();
                 h.setUsuario(rs.getString("ident_usuario"));
                 h.setPassword(rs.getString("pass_usuario"));
                 h.setRut(rs.getInt("rut_usuario"));
@@ -82,7 +82,7 @@ public class DAOHincha extends ConBD{
         return listaHincha;
     }
     
-    public boolean registrarHincha(Hincha h){
+    public boolean registrarHincha(Usuario h){
         //Variable que permite verificar si se inserto correctamente
         //el empleado
         boolean exito=false;

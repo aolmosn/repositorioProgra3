@@ -5,7 +5,7 @@
  */
 package cl.inacap.DAO;
 
-import cl.inacap.modelo.Hincha;
+import cl.inacap.modelo.Usuario;
 import cl.inacap.modelo.Solicitud;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

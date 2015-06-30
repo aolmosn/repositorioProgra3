@@ -9,7 +9,7 @@ package cl.inacap.modelo;
  *
  * @author Cubil
  */
-public class Hincha {
+public class Usuario {
     private String usuario;
     private String password;
     private int rut;

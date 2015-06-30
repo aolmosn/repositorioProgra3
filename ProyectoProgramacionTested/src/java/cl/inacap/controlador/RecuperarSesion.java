@@ -7,7 +7,7 @@ package cl.inacap.controlador;
 
 import cl.inacap.DAO.DAOHincha;
 import cl.inacap.DAO.DAOSolicitud;
-import cl.inacap.modelo.Hincha;
+import cl.inacap.modelo.Usuario;
 import cl.inacap.modelo.Solicitud;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -60,7 +60,7 @@ public class RecuperarSesion extends HttpServlet {
             if (tipoUsuario.equals("Administrador")){
 //                contexto.log(new Date() + " - Se recupero la sesion ADMINISTRADOR");
                 DAOHincha hincha = new DAOHincha();
-                ArrayList<Hincha> ListaHincha = hincha.listarHinchas();
+                ArrayList<Usuario> ListaHincha = hincha.listarHinchas();
                 DAOSolicitud solicitud = new DAOSolicitud();
                 ArrayList<Solicitud> listaSolicitud = new ArrayList();
                 

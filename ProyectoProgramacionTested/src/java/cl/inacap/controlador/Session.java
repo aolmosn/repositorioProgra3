@@ -6,7 +6,7 @@
 package cl.inacap.controlador;
 
 import cl.inacap.DAO.DAOHincha;
-import cl.inacap.modelo.Hincha;
+import cl.inacap.modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -36,14 +36,14 @@ public class Session extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String user, password;
-        ArrayList<Hincha> listaHincha = new ArrayList();
+        ArrayList<Usuario> listaHincha = new ArrayList();
         DAOHincha daoHincha = new DAOHincha();
         user = request.getParameter("txtUsuario");
         password = request.getParameter("txtPassword");
         
         listaHincha = daoHincha.listarHinchas();
         //si el tipo de ususario es hincha o es administrador, creara un objeta administrador o session
-        for (Hincha h : listaHincha) {
+        for (Usuario h : listaHincha) {
             if (h.getUsuario().equalsIgnoreCase(user) && h.getPassword().equals(password)){
                 //se crea un objeto sesion que guardara el tipo de ususario
                 HttpSession session = request.getSession();
