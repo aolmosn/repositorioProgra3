@@ -5,11 +5,14 @@
  */
 package cl.inacap.controlador;
 
-import cl.inacap.DAO.DAOHincha;
+import cl.inacap.DAO.DAOUsuario;
 import cl.inacap.modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +26,12 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "Session", urlPatterns = {"/Session"})
 public class Session extends HttpServlet {
-
+    /*ServletContext contexto;
+    public void init(ServletConfig config) throws ServletException{
+        super.init(config);
+        contexto = this.getServletContext();
+        contexto.log(new Date() + " - Se inicializa Servlet.");
+    }*/
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,30 +44,48 @@ public class Session extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String user, password;
-        ArrayList<Usuario> listaHincha = new ArrayList();
-        DAOHincha daoHincha = new DAOHincha();
+        ArrayList<Usuario> listaUsuario = new ArrayList();
+        DAOUsuario daoUsuario = new DAOUsuario();
         user = request.getParameter("txtUsuario");
         password = request.getParameter("txtPassword");
-        
-        listaHincha = daoHincha.listarHinchas();
-        //si el tipo de ususario es hincha o es administrador, creara un objeta administrador o session
-        for (Usuario h : listaHincha) {
-            if (h.getUsuario().equalsIgnoreCase(user) && h.getPassword().equals(password)){
+        //contexto.log(new Date() + " - Se Logeo el usuario " + user);
+        //contexto.log(new Date() + " - Clave:" + password);
+        Usuario UsuarioValidado = new Usuario();
+        listaUsuario = daoUsuario.listarUsuarios();
+        //si el tipo de ususario es hincha o es administrador, creara un objeta administrador o 
+        //contexto.log(new Date() + "Se revisara la lista usuarios");
+        //contexto.log(new Date() + " - lista con :" + listaUsuario.size());
+        for (Usuario u : listaUsuario) {
+        //    contexto.log(new Date() + u.getUsuario() + " == " + user);
+            if (u.getUsuario().trim().equalsIgnoreCase(user) && u.getPassword().trim().equals(password)){
                 //se crea un objeto sesion que guardara el tipo de ususario
-                HttpSession session = request.getSession();
-                session.setAttribute("tipoUsuario", h.getTipoUsuario());
-                session.setAttribute("Usuario", h);
-                if(h.getTipoUsuario().equals("Administrador")){
+                //        contexto.log(new Date() + " - Usuario correcto");
+                //        contexto.log(new Date() + " - tipo Usuario:" + u.getTipoUsuario().trim() + " == Administrador");
+                UsuarioValidado = u;
+                break;
+            }
+        }        
+                
+                if(UsuarioValidado.getTipoUsuario().trim().equals("Administrador")){
+                    HttpSession session = request.getSession();
+                    session.setAttribute("tipoUsuario", UsuarioValidado.getTipoUsuario());
+                    session.setAttribute("Usuario", UsuarioValidado);
                     request.getRequestDispatcher("RecuperarSesion").forward(request, response);
+                    
                 }else{
+                    HttpSession session = request.getSession();
+                    session.setAttribute("Usuario", UsuarioValidado);
                     request.getRequestDispatcher("inicioHincha.jsp").forward(request, response);
+                    
                 }
-            }else{
+        //    contexto.log(new Date() + " - Usuario Incorrecto");
+            /*else{
+                
                 String msg = "Usuario no existe o datos mal ingresados";
                 request.setAttribute("msg", msg);
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-            }
-        }
+            }*/
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

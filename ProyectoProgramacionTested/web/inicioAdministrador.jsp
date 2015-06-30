@@ -4,6 +4,7 @@
     Author     : andre_000
 --%>
 
+<%@page import="cl.inacap.modelo.Usuario"%>
 <%@page import="cl.inacap.modelo.Solicitud"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,15 +15,17 @@
         <title>JSP Page</title>
     </head>
     <%
-    ArrayList<Solicitud> listaSolicitud = (ArrayList) request.getAttribute("listaSolicitud");
+        HttpSession sesion = request.getSession();
+        Usuario u = (Usuario)sesion.getAttribute("Usuario");
+        ArrayList<Solicitud> listaSolicitud = (ArrayList) request.getAttribute("listaSolicitud");
     %>
     <body>
         <form action="CerrarSesion">
             <input type="submit" name="Cerrar Sesion" value="Cerra" />
         </form>
 
-        <h1>HolaAdministrador</h1>
-        
+        <h1>Hola </h1>
+        <%=u.getUsuario() %>
 
    
             <a href="IngresarSeleccion.jsp">Ingresar Seleccion</a>

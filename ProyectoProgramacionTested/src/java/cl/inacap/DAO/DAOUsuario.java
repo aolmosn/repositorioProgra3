@@ -18,10 +18,10 @@ import java.util.logging.Logger;
  *
  * @author andre_000
  */
-public class DAOHincha extends ConBD{
+public class DAOUsuario extends ConBD{
     
     public ArrayList<Usuario> listarUsuarios(){
-        ArrayList<Usuario> listaHincha = new ArrayList();
+        ArrayList<Usuario> listaUsuario = new ArrayList();
         Usuario h;
         try {
             Connection con = this.getConexion();
@@ -31,24 +31,24 @@ public class DAOHincha extends ConBD{
             
             while(rs.next()){
                 h = new Usuario();
-                h.setUsuario(rs.getString("ident_usuario"));
-                h.setPassword(rs.getString("pass_usuario"));
                 h.setRut(rs.getInt("rut_usuario"));
+                h.setUsuario(rs.getString("usuario"));
+                h.setPassword(rs.getString("pass_usuario"));
                 h.setNombre(rs.getString("nom_usuario"));
                 h.setApellido(rs.getString("ape_usuario"));
-                h.setMail(rs.getString("mail_ususario"));
+                h.setMail(rs.getString("mail_usuario"));
                 h.setTipoUsuario(rs.getString("tipo_usuario"));
                 h.setAcronimo(rs.getString("acron_seleccion"));
-                listaHincha.add(h);
+                listaUsuario.add(h);
             }
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAOHincha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(DAOHincha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return listaHincha;
+        return listaUsuario;
     }
     
     public ArrayList<Usuario> listarHinchas(){
@@ -56,27 +56,27 @@ public class DAOHincha extends ConBD{
         Usuario h;
         try {
             Connection con = this.getConexion();
-            String strSQL = "SELECT * FROM USUARIO WHERE TIPO_USUARIO LIKE 'HINCHA%'";
+            String strSQL = "SELECT * FROM USUARIO WHERE TIPO_USUARIO LIKE 'Hincha%'";
             PreparedStatement ps = con.prepareStatement(strSQL);
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
                 h = new Usuario();
-                h.setUsuario(rs.getString("ident_usuario"));
+                h.setUsuario(rs.getString("usuario"));
                 h.setPassword(rs.getString("pass_usuario"));
                 h.setRut(rs.getInt("rut_usuario"));
                 h.setNombre(rs.getString("nom_usuario"));
                 h.setApellido(rs.getString("ape_usuario"));
-                h.setMail(rs.getString("mail_ususario"));
+                h.setMail(rs.getString("mail_usuario"));
                 h.setTipoUsuario(rs.getString("tipo_usuario"));
                 h.setAcronimo(rs.getString("acron_seleccion"));
                 listaHincha.add(h);
             }
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAOHincha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(DAOHincha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return listaHincha;
@@ -104,18 +104,18 @@ public class DAOHincha extends ConBD{
             int cantFilas = ps.executeUpdate();//Se usa para insert, delete y update
             if (cantFilas > 0 ){
             exito = true;
-            Logger.getLogger(DAOHincha.class.getName()).log(Level.SEVERE, "Insercion Correcta");
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, "Insercion Correcta");
             }else{
-            Logger.getLogger(DAOHincha.class.getName()).log(Level.SEVERE, "No se pudo insertar");
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, "No se pudo insertar");
             }
             con.close();
             ps.close();
             
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAOHincha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(DAOHincha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         return exito;
     }

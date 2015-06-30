@@ -64,9 +64,9 @@ public class DAOObjeto extends ConBD{
             }
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAOHincha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(DAOHincha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         return entrada;
     }

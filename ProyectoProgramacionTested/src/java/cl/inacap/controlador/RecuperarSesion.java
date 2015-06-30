@@ -5,7 +5,7 @@
  */
 package cl.inacap.controlador;
 
-import cl.inacap.DAO.DAOHincha;
+import cl.inacap.DAO.DAOUsuario;
 import cl.inacap.DAO.DAOSolicitud;
 import cl.inacap.modelo.Usuario;
 import cl.inacap.modelo.Solicitud;
@@ -47,19 +47,21 @@ public class RecuperarSesion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         contexto.log(new Date() + " - Se recupera sesion si es que la hay ");
-        HttpSession sesion = request.getSession();
+        HttpSession session = request.getSession();
         
-        if (sesion.isNew()){
+        if (session.isNew()){
             contexto.log(new Date() + " - No se ha iniciado sesion, debe logearse");
             request.getRequestDispatcher("index.jsp").forward(request, response);    
         }else{
             contexto.log(new Date() + " - Se recupero la sesion, se redireccionara a la pagina de inicio");
-            String tipoUsuario = (String)sesion.getAttribute("tipoUsuario");
-            
+            Usuario tipoUsuario = (Usuario)session.getAttribute("Usuario");
+            contexto.log(new Date() + " - " + tipoUsuario.getTipoUsuario());
             //Revisa si es un administrador o un hincha
-            if (tipoUsuario.equals("Administrador")){
-//                contexto.log(new Date() + " - Se recupero la sesion ADMINISTRADOR");
-                DAOHincha hincha = new DAOHincha();
+            if (tipoUsuario.getTipoUsuario().trim().equals("Administrador")){
+                session.setAttribute("Usuario", tipoUsuario);
+                
+              contexto.log(new Date() + " - Se recupero la sesion para: " + tipoUsuario.getNombre());
+                DAOUsuario hincha = new DAOUsuario();
                 ArrayList<Usuario> ListaHincha = hincha.listarHinchas();
                 DAOSolicitud solicitud = new DAOSolicitud();
                 ArrayList<Solicitud> listaSolicitud = new ArrayList();

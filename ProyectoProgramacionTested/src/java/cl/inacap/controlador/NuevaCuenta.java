@@ -5,7 +5,7 @@
  */
 package cl.inacap.controlador;
 
-import cl.inacap.DAO.DAOHincha;
+import cl.inacap.DAO.DAOUsuario;
 import cl.inacap.modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -47,7 +47,7 @@ public class NuevaCuenta extends HttpServlet {
                 h.setMail(request.getParameter("txtMail"));
                 h.setTipoUsuario("Hincha");
                 
-                DAOHincha daoHincha = new DAOHincha();
+                DAOUsuario daoHincha = new DAOUsuario();
                 String msg = "";
                 if(daoHincha.registrarHincha(h)){
                     msg = "Registro Exitoso Ahota debe logearse";

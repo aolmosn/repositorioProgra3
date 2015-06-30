@@ -24,7 +24,7 @@
             <label>Usuario</label><br />
             <input type="text" name="txtUsuario" required=""/><br />
             <label>Passwor</label><br />
-            <input type="password" naem="txtPassword" required=""/><br />
+            <input type="password" name="txtPassword" required=""/><br />
             <input type="submit" name="Login" />
         </form>
         <a href="RegistrarCuenta.jsp">Crear Cuenta</a>
